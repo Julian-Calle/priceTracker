@@ -11,35 +11,18 @@ const path = require("path");
 // #################################################################
 // #             Importamos controllers y middlewares              #
 // #################################################################
-const {
-  createTask,
-  deleteTask,
-  deleteAllCheckedTasks,
-  editTask,
-  filterTasks,
-  listTypesByUSer,
-  sendTask,
-  shareTask,
-  kickOut,
-} = require("./controllers/tasks");
 
-const {
-  createUser,
-  loginUser,
-  validateUser,
-  editUser,
-  validateEmail,
-  editPassword,
-  getMemberList,
-} = require("./controllers/users");
-const {
-  isAuthorized,
-  ifTaskExists,
-  isUser,
-  isMember,
-  ifInvitedUserExist,
-  isCreator,
-} = require("./middlewares");
+const addItem = require("./controllers/addItem");
+const getItems = require("./controllers/getItems");
+const updateStatus = require("./controllers/updateStatus");
+// const {
+//   isAuthorized,
+//   ifTaskExists,
+//   isUser,
+//   isMember,
+//   ifInvitedUserExist,
+//   isCreator,
+// } = require("./middlewares");
 
 // #################################################################
 // #                      Configuramos express                     #
@@ -61,7 +44,8 @@ app.use(
 app.use(cors());
 
 //Archivos estaticos (habilitar carpeta uploads)
-app.use(express.static(path.join(__dirname, "uploads")));
+// app.use(express.static(path.join(__dirname, "uploads")));
+app.use("/uploads", express.static("uploads"));
 // Body parser (multipart form data <- subida de imágenes)
 app.use(fileUpload());
 // Logger (solo se empleará durante el desarrollo)
@@ -69,12 +53,20 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
-// #############################################################
-// #                     Endpoints de task                     #
-// #############################################################
-//GET - Petición para añadir una
-//URL ejemplo: http://localhost:3000/tasks
-app.post("/tasks", isAuthorized, createTask);
+// ###################################################
+// #                     Endpoints                   #
+// ###################################################
+//POST - Añadir un item
+//URL ejemplo: http://localhost:3000/new
+app.post("/new", addItem);
+
+//GET - Solicitar listado de actualicaciones
+//URL ejemplo: http://localhost:3000/items
+app.get("/items", getItems);
+
+//GET - Solicitar listado de actualicaciones
+//URL ejemplo: http://localhost:3000/update
+app.post("/update", updateStatus);
 
 // #################################################################
 // #                 Endpoints not found y error                   #

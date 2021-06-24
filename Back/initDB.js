@@ -10,15 +10,6 @@ async function main() {
   try {
     connection = await getDB();
 
-    // borrar tablas si existen
-    console.log("****************************");
-    console.log("* Borrando tablas antiguas *");
-    console.log("****************************");
-    await connection.query(`DROP TABLE IF EXISTS items`);
-    console.log("Tabla de items eliminada");
-    await connection.query(`DROP TABLE IF EXISTS status`);
-    console.log("Tabla de status eliminada");
-
     //leer script sql
     console.log("Leyendo BBDD");
     const sqlScript = await (
@@ -26,34 +17,29 @@ async function main() {
     ).toString();
     await connection.query(sqlScript);
 
-    console.log("**********************************************************");
+    console.log("************************************************");
     console.log("* BBDD cargado, iniciando creación de datos... *");
-    console.log("**********************************************************");
+    console.log("************************************************");
 
     await connection.query(`
-INSERT INTO users (name,email,password,verified)
+INSERT INTO items (name,photo,url,email)
 VALUES 
-    ("Juliano","jcallecristancho@gmail.com",SHA2("1234",512),1),
-    ("Vira","ubeiram@gmail.com",SHA2("1234",512),1),
-    ("Raulinux","raulzc3@gmail.com",SHA2("1234",512),1)
+    ("piano","piano.jpg","https://www.thomann.de/es/yamaha_gb1k_schwarz_poliert.htm","jcallecristancho@gmail.com"),
+    ("guitarra","guitarra.jpg","https://www.thomann.de/es/harley_benton_gs_travel_e_mahogany.htm","jcallecristancho@gmail.com"),
+    ("microfono","micro.jpg","https://www.thomann.de/es/audix_d6_bassdrummikro.htm","jcallecristancho@gmail.com")
     `);
 
     await connection.query(`
-INSERT INTO tasks (task, checked, userId, color,type)
-VALUES 
-("ir a morfar", 0, 1, "blue","Urgente"),
-("ir a cambiarme la napia", 0, 3, "red","Bromas")
-`);
-
-    await connection.query(`
-INSERT INTO tasks (task, checked, userId)
-VALUES 
-("ir a dar clase", 0, 2)
-`);
-
-    await connection.query(`
-INSERT INTO membersList (taskId, userId)
-VALUES (1,1),(2,2),(3,3)
+INSERT INTO status (price, date,itemId)
+VALUES (100,"2021-01-01",1),
+(150,"2021-01-02",1),
+(200,"2021-01-03",1),
+(300,"2021-02-01",2),
+(250,"2021-02-02",2),
+(200,"2021-02-03",2),
+(50,"2021-03-01",3),
+(10,"2021-03-02",3),
+(80,"2021-03-03",3)
 `);
 
     //añadir valores a tablas
