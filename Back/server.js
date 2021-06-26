@@ -13,6 +13,7 @@ const path = require("path");
 // #################################################################
 
 const addItem = require("./controllers/addItem");
+const deleteItem = require("./controllers/deleteItem");
 const getItems = require("./controllers/getItems");
 const updateStatus = require("./controllers/updateStatus");
 // const {
@@ -59,6 +60,10 @@ if (process.env.NODE_ENV === "development") {
 //POST - Añadir un item
 //URL ejemplo: http://localhost:3000/new
 app.post("/new", addItem);
+
+//DELETE - Eliminar un item
+//URL ejemplo: http://localhost:3000/:id
+app.delete("/delete/:id", deleteItem);
 
 //GET - Solicitar listado de actualicaciones
 //URL ejemplo: http://localhost:3000/items

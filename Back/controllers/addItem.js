@@ -17,7 +17,7 @@ const addItem = async (req, res, next) => {
     );
 
     if (result.length > 0) {
-      throw createError("Este item ya esta siendo trackeado", 400);
+      throw createError("Este item ya está siendo trackeado", 400);
     }
 
     //añadir el item a la lista de items
