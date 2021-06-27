@@ -4,7 +4,7 @@ import ItemList from "./components/ItemList"
 
 function App() {
   return (
-<body>
+<div className="mainContainer">
   <section className="addITem">
 hola
   </section>
@@ -12,7 +12,7 @@ hola
   <section className="itemListSection">
 <ItemList/>
 </section>
-</body>
+</div>
   );
 }
 
