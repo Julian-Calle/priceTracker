@@ -1,11 +1,9 @@
-const { createError, savePhoto } = require("../helpers");
-
-const nightmare = require("nightmare")();
-const puppeteer = require("puppeteer");
+const { createError, uploadsDir } = require("../helpers");
 const cheerio = require("cheerio");
 const request = require("request");
 const uuid = require("uuid");
 const fs = require("fs");
+const path = require("path");
 
 const addItem = async (req, res, next) => {
   let connection;
@@ -13,11 +11,13 @@ const addItem = async (req, res, next) => {
   let itemName;
   let itemPhotoUrl;
   const savedImageName = `${uuid.v4()}.jpg`;
+  let photoPath = path.join(uploadsDir, savedImageName);
+
   try {
     connection = await req.app.locals.getDB();
     const { url, email } = req.body;
 
-    // console.log(req.body);
+    console.log(uploadsDir);
 
     // Si ya existe devolver error
     const [result] = await connection.query(
@@ -49,10 +49,11 @@ const addItem = async (req, res, next) => {
         $("img", ".prod-media-spot-container").each(function () {
           itemPhotoUrl = $(this).attr("src");
           console.log(itemPhotoUrl);
-
-          request(itemPhotoUrl).pipe(
-            fs.createWriteStream(`./uploads/${savedImageName}`)
-          );
+          try {
+            request(itemPhotoUrl).pipe(fs.createWriteStream(photoPath));
+          } catch (error) {
+            photoPath = path.join(uploadsDir, "default.jpg");
+          }
         });
       }
       //añadir el item a la lista de items
@@ -65,18 +66,17 @@ const addItem = async (req, res, next) => {
 
       const newItemId = feedBackInput.insertId;
 
-      // // si hay foto se guarda
-      // if (req.files && Object.keys(req.files).length === 1) {
-      //   // Guardar la imagen y conseguir el nombre del fichero
-      //   const photoName = await savePhoto(req.files.photo);
-      //   await connection.query(
-      //     `
-      //        UPDATE items SET photo=? WHERE id=?`,
-      //     [savedImageName, newItemId]
-      //   );
-      // }
+      // si hay foto se guarda
 
-      // añadir la primera actualización
+      // Guardar el nombre de la ruta de la imagen y conseguir el nombre del fichero
+
+      await connection.query(
+        `
+             UPDATE items SET photo=? WHERE id=?`,
+        [photoPath, newItemId]
+      );
+
+      //añadir la primera actualización
 
       await connection.query(
         `
@@ -88,6 +88,8 @@ const addItem = async (req, res, next) => {
         data: { name: itemName, price: itemPrice, email, url: itemPhotoUrl },
       });
     });
+
+    // console.log(test);
   } catch (error) {
     next(error);
   } finally {

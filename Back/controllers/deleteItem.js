@@ -6,17 +6,6 @@ const deleteItem = async (req, res, next) => {
     connection = await req.app.locals.getDB();
     const { id } = req.params;
 
-    //verificar si existe. En caso de ser así se devuelve un error
-    const [search] = await connection.query(
-      `
-    SELECT id, name FROM items WHERE id= ?
-    `,
-      [id]
-    );
-    console.log(search);
-    if (search.length === 0) {
-      throw createError("Este item NO está siendo trackeado", 400);
-    }
     // se eliminan todas las actualizacines de ese item
 
     await connection.query(
@@ -35,7 +24,7 @@ const deleteItem = async (req, res, next) => {
 
     res.send({
       status: "ok",
-      data: { ...search[0] },
+      data: { ...req.selectedItem },
     });
   } catch (error) {
     next(error);

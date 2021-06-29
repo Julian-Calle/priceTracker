@@ -257,4 +257,5 @@ module.exports = {
   createGreetings,
   distanceDateInHours,
   setPhotoUrl,
+  uploadsDir,
 };
