@@ -4,12 +4,19 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-content: center;
+    align-items: center;
+    /* max-width: 100vw;
+    max-height: 25vh; */
+    margin: .5rem;
 }
 
 .singleItem img{
+    width: 15rem;
+    height: 20rem;
     max-width: 100vw;
+    max-height: 20vh;
     border-radius: 20px;
+    object-fit:contain;
 }
 
 .itemInformation{

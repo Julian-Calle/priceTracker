@@ -12,16 +12,20 @@ export default function ItemContainer({ name, photo, timeline }) {
   };
 
   const hideChart = () => {
-    console.log("hola");
-    setActiveChart("hide");
     setActivePhoto("");
+    setActiveChart("hide");
   };
-  console.log(timeline[timeline.length - 1]);
+  // console.log(timeline[timeline.length - 1]);
   return (
     <div className="singleItem">
       <img className={activephoto} onClick={showChart} src={photo} alt="item" />
-      <PriceChart optionClass={activeChart} hideChart={hideChart} />
-      <div className="itemInformation">
+      <PriceChart
+        optionClass={activeChart}
+        hideChart={hideChart}
+        timeline={timeline}
+        name={name}
+      />
+      <div onClick={hideChart} className="itemInformation">
         <h1> {name}</h1>
         <h3>{`${timeline[timeline.length - 1].price} €`}</h3>
       </div>
