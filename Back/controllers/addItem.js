@@ -10,7 +10,7 @@ const addItem = async (req, res, next) => {
   let itemPrice;
   let itemName;
   let itemPhotoUrl;
-  const savedImageName = `${uuid.v4()}.jpg`;
+  let savedImageName = `${uuid.v4()}.jpg`;
   let photoPath = path.join(uploadsDir, savedImageName);
 
   try {
@@ -53,6 +53,7 @@ const addItem = async (req, res, next) => {
             request(itemPhotoUrl).pipe(fs.createWriteStream(photoPath));
           } catch (error) {
             photoPath = path.join(uploadsDir, "default.jpg");
+            savedImageName = "default.jpg";
           }
         });
       }
@@ -73,7 +74,7 @@ const addItem = async (req, res, next) => {
       await connection.query(
         `
              UPDATE items SET photo=? WHERE id=?`,
-        [photoPath, newItemId]
+        [savedImageName, newItemId]
       );
 
       //añadir la primera actualización

@@ -10,15 +10,23 @@ export default function ItemList() {
       const ItemList = await getItems();
       // console.log(ItemList.data);
       console.log(ItemList);
-      setItemsInfo(ItemList.data);
+      setItemsInfo(ItemList);
     };
     getItemsInfo();
   }, []);
   return (
     <div className="charContainer">
       {itemsInfo?.length &&
-        setItemsInfo.map((item) => {
-          <ItemContainer key={item} />;
+        itemsInfo.map((item) => {
+          console.log(item);
+          return (
+            <ItemContainer
+              key={item.id}
+              name={item.name}
+              photo={item.photo}
+              timeline={item.timeline}
+            />
+          );
         })}
     </div>
   );
