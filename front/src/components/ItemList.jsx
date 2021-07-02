@@ -1,61 +1,25 @@
-import React from 'react'
-import { Line } from 'react-chartjs-2';
-
-const data = {
-  labels: [12, '2', '3', '4', '5', '6'],
-  datasets: [
-    {
-      label: '# of Votes',
-      data: [12, 19, 3, 5, 2, 3],
-      fill: true,
-      backgroundColor: 'rgb(255, 99, 132,0.1)',
-      borderColor: 'rgba(255, 99, 132, 0.9)',
-    },
-  ],
-};
-
-const options = {
-//   scales: {
-//     yAxes: [
-//       {
-//         ticks: {
-//           beginAtZero: true,
-//           callback: function(value, index, values) {
-//             return  "2";
-//         },
-//         scaleLabel: {
-//             display: true,
-//             labelString: '1k = 1000'
-//         }
-//         },
-//       },
-//     ],
-//   },
-responsive: true,
-layout: {
-  padding: 20,
-  
-  },
-  scales: {
-    y: {
-        ticks: {
-            // Include a dollar sign in the ticks
-            callback: function(value, index, values) {
-                return value +"€";
-            }
-        }
-    },
-
-},
-
-};
-
+import React, { useEffect, useState } from "react";
+import "../CSS/itemList.css";
+import ItemContainer from "./ItemContainer";
+import { getItems } from "../https/request.js";
 
 export default function ItemList() {
-    return (
-        <div style={{margin:"1rem"}}>
-            
-    <Line className="chart" data={data} options={options} />
-        </div>
-    )
+  const [itemsInfo, setItemsInfo] = useState([]);
+  useEffect(() => {
+    const getItemsInfo = async () => {
+      const ItemList = await getItems();
+      // console.log(ItemList.data);
+      console.log(ItemList);
+      setItemsInfo(ItemList.data);
+    };
+    getItemsInfo();
+  }, []);
+  return (
+    <div className="charContainer">
+      {itemsInfo?.length &&
+        setItemsInfo.map((item) => {
+          <ItemContainer key={item} />;
+        })}
+    </div>
+  );
 }

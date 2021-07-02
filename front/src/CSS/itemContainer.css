@@ -1,0 +1,22 @@
+.singleItem{
+    background-color: white;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.singleItem img{
+    max-width: 100vw;
+    border-radius: 20px;
+}
+
+.itemInformation{
+margin:  .5rem 1rem;
+padding-top: .2rem;
+}
+
+.hide{
+display:none
+}

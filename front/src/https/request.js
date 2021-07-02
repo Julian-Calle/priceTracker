@@ -1,4 +1,4 @@
-import { fetchApi, requestMethods } from "../shared/utils/fetchFunctions";
+import { fetchApi, requestMethods } from "../utils/fetchFunctions";
 const endpoints = {
   new: "/new",
   delete: "/delete/",
@@ -26,25 +26,21 @@ export async function deleteItem(id) {
   console.log(response);
 }
 
-// export async function newItem(task, color, type, timeLimit) {
+export async function newItem(task, color, type, timeLimit) {
+  const response = await fetchApi(`${endpoints.createTask}`, {
+    method: requestMethods.post,
+    body: { task, color, type, timeLimit },
+  });
+  if (response.status === "ok") {
+    return response.data;
+  }
+  console.log(response);
+}
 
-//     const response = await fetchApi(`${endpoints.createTask}`, {
-//       method: requestMethods.post,
-//       body: { task, color, type, timeLimit },
-//     });
-//     if (response.status === "ok") {
-//       return response.data;
-//     }
-//     console.log(response);
-//   }
-
-export async function updateitem(id, price) {
-  const response = await fetchApi(
-    `${endpoints.update}?price=${price}&id=${id}`,
-    {
-      method: requestMethods.post,
-    }
-  );
+export async function updateitem(id) {
+  const response = await fetchApi(`${endpoints.update}/${id}`, {
+    method: requestMethods.post,
+  });
   if (response.status === "ok") {
     return response.data;
   }
