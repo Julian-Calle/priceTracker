@@ -3,16 +3,17 @@ import { Line } from "react-chartjs-2";
 
 export default function PriceChart({ optionClass, hideChart, timeline, name }) {
   const priceValues = timeline.map((item) => item.price);
-  const datesValues = timeline.map((item) => new Date(item.date).toISOString());
-  console.log(priceValues);
-  console.log(datesValues);
+  const datesValues = timeline.map((item) =>
+    new Date(item.date).toDateString()
+  );
+
   const data = {
     // labels: ["12", "2", "3", "4", "5", "6"],
     labels: datesValues,
     datasets: [
       {
         // label: "# of Votes",
-        label: `Price of ${name}`,
+        label: `Precio de ${name}`,
         data: priceValues,
         fill: true,
         backgroundColor: "rgb(255, 99, 132,0.1)",
@@ -51,6 +52,11 @@ export default function PriceChart({ optionClass, hideChart, timeline, name }) {
           },
         },
       },
+      // xAxis: {
+      //   // The axis for this scale is determined from the first letter of the id as `'x'`
+      //   // It is recommended to specify `position` and / or `axis` explicitly.
+      //   type: "time",
+      // },
     },
   };
 
@@ -58,9 +64,9 @@ export default function PriceChart({ optionClass, hideChart, timeline, name }) {
     <div
       onClick={hideChart}
       className={`chartContainer ${optionClass}`}
-      style={{ margin: "1rem", maxWidth: "100vw" }}
+      style={{ maxWidth: "100vw", paddingLeft: "3rem", paddingRight: "3rem" }}
     >
-      <Line className={`chart ${optionClass}`} data={data} options={options} />
+      <Line data={data} options={options} />
     </div>
   );
 }
