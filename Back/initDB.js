@@ -24,9 +24,9 @@ async function main() {
     await connection.query(`
 INSERT INTO items (name,photo,url,email)
 VALUES 
-    ("piano","piano.jpg","https://www.thomann.de/es/yamaha_gb1k_schwarz_poliert.htm","jcallecristancho@gmail.com"),
-    ("guitarra","guitarra.jpg","https://www.thomann.de/es/harley_benton_gs_travel_e_mahogany.htm","jcallecristancho@gmail.com"),
-    ("microfono","micro.jpg","https://www.thomann.de/es/audix_d6_bassdrummikro.htm","jcallecristancho@gmail.com")
+    ("piano","https://thumbs.static-thomann.de/thumb/orig/pics/bdb/136746/106439_800.jpg","https://www.thomann.de/es/yamaha_gb1k_schwarz_poliert.htm","jcallecristancho@gmail.com"),
+    ("guitarra","https://thumbs.static-thomann.de/thumb/orig/pics/prod/410797.jpg","https://www.thomann.de/es/harley_benton_gs_travel_e_mahogany.htm","jcallecristancho@gmail.com"),
+    ("microfono","https://thumbs.static-thomann.de/thumb/orig/pics/bdb/160142/14740626_800.jpg","https://www.thomann.de/es/audix_d6_bassdrummikro.htm","jcallecristancho@gmail.com")
     `);
 
     await connection.query(`

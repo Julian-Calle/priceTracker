@@ -26,10 +26,10 @@ export async function deleteItem(id) {
   console.log(response);
 }
 
-export async function newItem(task, color, type, timeLimit) {
-  const response = await fetchApi(`${endpoints.createTask}`, {
+export async function newItem(url, email) {
+  const response = await fetchApi(`${endpoints.new}`, {
     method: requestMethods.post,
-    body: { task, color, type, timeLimit },
+    body: { url, email },
   });
   if (response.status === "ok") {
     return response.data;
@@ -37,7 +37,7 @@ export async function newItem(task, color, type, timeLimit) {
   console.log(response);
 }
 
-export async function updateitem(id) {
+export async function updateItem(id) {
   const response = await fetchApi(`${endpoints.update}/${id}`, {
     method: requestMethods.post,
   });

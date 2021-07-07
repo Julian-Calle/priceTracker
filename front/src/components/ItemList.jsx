@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "../CSS/itemList.css";
 import ItemContainer from "./ItemContainer";
-import { getItems } from "../https/request.js";
-
-export default function ItemList() {
-  const [itemsInfo, setItemsInfo] = useState([]);
-  useEffect(() => {
-    const getItemsInfo = async () => {
-      const ItemList = await getItems();
-      // console.log(ItemList.data);
-      console.log(ItemList);
-      setItemsInfo(ItemList);
-    };
-    getItemsInfo();
-  }, []);
+// import { updateItem } from "../https/request.js";
+export default function ItemList({ itemsInfo, setItemsInfo }) {
+  // const [itemsInfo, setItemsInfo] = useState([]);
+  // const updater = setInterval(() => {
+  //   console.log("ACTUALIZOOOOO");
+  //   itemsInfo.map((item) => {
+  //     updateItem(item.id);
+  //   });
+  // }, 2000);
   return (
     <div className="charContainer">
       {itemsInfo?.length &&
@@ -24,6 +20,7 @@ export default function ItemList() {
               key={item.id}
               name={item.name}
               photo={item.photo}
+              url={item.url}
               timeline={item.timeline}
             />
           );

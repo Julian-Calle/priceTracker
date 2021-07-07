@@ -16,11 +16,11 @@ export const requestMethods = {
  */
 
 export async function fetchApi(path, { body, method }) {
-  const token = localStorage.getItem("token");
+  // const token = localStorage.getItem("token");
   const headers = new Headers({ "Content-Type": "application/json" });
-  if (token) {
-    headers.append("Authorization", token);
-  }
+  // if (token) {
+  //   headers.append("Authorization", token);
+  // }
   const request = await fetch(`${apiUrl}${path}`, {
     headers,
     method,

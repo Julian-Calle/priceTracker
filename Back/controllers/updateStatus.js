@@ -37,10 +37,10 @@ const updateStatus = async (req, res, next) => {
           [req.selectedItem.id]
         );
         const currentMinItemPrice = searchCurrentMinItemPrice[0].minPrice;
-        console.log(currentMinItemPrice);
+        // console.log(currentMinItemPrice);
 
         if (itemPrice < currentMinItemPrice) {
-          console.log("nuevo menor precio y enviar correo");
+          // console.log("nuevo menor precio y enviar correo");
         }
 
         //añadir el nuevo status

@@ -8,7 +8,7 @@ const getItems = async (req, res, next) => {
     // obtengo la lista de items
     const [listItems] = await connection.query(
       `
-      SELECT id, name, photo FROM items
+      SELECT id, name, photo, url FROM items
 
       `
     );
@@ -17,7 +17,9 @@ const getItems = async (req, res, next) => {
       return {
         id: item.id,
         name: item.name,
-        photo: `${PUBLIC_HOST}/${UPLOADS_DIRECTORY}/${item.photo}`,
+        // photo: `${PUBLIC_HOST}/${UPLOADS_DIRECTORY}/${item.photo}`,
+        photo: item.photo,
+        url: item.url,
       };
     });
 
