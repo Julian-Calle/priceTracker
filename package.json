@@ -1,0 +1,24 @@
+{
+  "name": "priceTracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build":"cd front && npm run build",
+    "install-client":"cd front && npm install",
+    "heroku-postbuild":" npm run install-client && npm run build",
+    "start": "node Back/server.js",
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Julian-Calle/priceTracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Julian-Calle/priceTracker/issues"
+  },
+  "homepage": "https://github.com/Julian-Calle/priceTracker#readme"
+}
