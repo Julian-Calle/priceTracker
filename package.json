@@ -8,7 +8,7 @@
     "build":"cd front && npm run build",
     "install-client":"cd front && npm install",
     "heroku-postbuild":" npm run install-client && npm run build",
-    "start": "node Back/server.js",
+    "start": "cd Back && node server.js"
   },
   "repository": {
     "type": "git",
